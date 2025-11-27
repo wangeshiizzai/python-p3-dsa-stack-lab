@@ -1,25 +1,49 @@
-class Stack:
+# lib/Stack.py
 
-    def __init__(self, items = [], limit = 100):
-        pass
+class Stack:
+    def __init__(self, items=None, limit=100):
+        """Initialize a stack with optional items and a limit."""
+        if items is None:
+            self.items = []
+        else:
+            if len(items) > limit:
+                raise ValueError("Initial items exceed stack limit")
+            self.items = items
+        self.limit = limit
 
     def isEmpty(self):
-        pass
+        """Return True if stack is empty, False otherwise."""
+        return len(self.items) == 0
 
     def push(self, item):
-        pass
+        """Push an item onto the stack if not full."""
+        if not self.full():
+            self.items.append(item)
 
     def pop(self):
-        pass
+        """Remove and return the top item. Returns None if empty."""
+        if not self.isEmpty():
+            return self.items.pop()
+        return None
 
     def peek(self):
-        pass
-    
+        """Return the top item without removing it."""
+        if not self.isEmpty():
+            return self.items[-1]
+        return None
+
     def size(self):
-        pass
+        """Return the number of elements in the stack."""
+        return len(self.items)
 
     def full(self):
-        pass
+        """Return True if the stack is at its limit."""
+        return len(self.items) >= self.limit
 
     def search(self, target):
-        pass
+        """Return distance from top to target (0 if top, -1 if not found)."""
+        try:
+            # distance from top = number of elements above target
+            return len(self.items) - 1 - self.items.index(target)
+        except ValueError:
+            return -1
